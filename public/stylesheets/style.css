@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
+
+body {
+  padding: 50px;
+  font-size: 14px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.game_title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 25px;
+  color: #2c3e50;
+}
+
+.player_info_box {
+  text-align: center;
+}
+
+.player_info_box > div {
+  margin-bottom: 20px;
+}
+
+.player_info_title {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #34495e;
+}
+
+.players_info > div {
+  margin-bottom: 15px;
+}
+
+input {
+  margin-top: 5px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 16px;
+  border: 1px solid #cccccc;
+  outline:none;
+  font-family: inherit;
+}
+
+button {
+  background: #27ae60;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  color: #ffffff;
+  font-family: inherit;
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+}
+
+.game_wrapper {
+  text-align: center;
+}
+
+.current_player {
+  margin-bottom: 10px;
+}
+
+.timer {
+  margin-bottom: 10px;
+}
+
+.gameBoard {
+  width: 152px;
+  margin: 20px auto 0;
+}
+
+.gameBoard:after {
+  clear: both;
+  content: '';
+  display: block;
+}
+
+.gameBoard > div {
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  float: left;
+  cursor: pointer;
+  text-align: center;
+  line-height: 50px;
+  font-size: 20px;
+}
+
+.gameBoard > div.filled {
+  pointer-events: none;
+}
+
+.gameBoard > div:nth-child(3n+1) {
+  clear: left;
+}
+
+.gameBoard > div:first-child {
+  border-bottom: 1px solid #000000;
+  border-right: 1px solid #000000;
+}
+
+.gameBoard > div:nth-child(2) {
+  border-bottom: 1px solid #000000;
+  border-right: 1px solid #000000;
+}
+
+.gameBoard > div:nth-child(3) {
+  border-bottom: 1px solid #000000;
+}
+
+.gameBoard > div:nth-child(4) {
+  border-bottom: 1px solid #000000;
+  border-right: 1px solid #000000;
+}
+
+.gameBoard > div:nth-child(5) {
+  border-bottom: 1px solid #000000;
+  border-right: 1px solid #000000;
+}
+
+.gameBoard > div:nth-child(6) {
+  border-bottom: 1px solid #000000;
+}
+
+.gameBoard > div:nth-child(7) {
+  border-right: 1px solid #000000;
+}
+
+.gameBoard > div:nth-child(8) {
+  border-right: 1px solid #000000;
+}
