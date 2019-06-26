@@ -14,7 +14,8 @@ class Home extends React.Component {
       player_2_type: 'O',
       timeout: null,
       timer: null,
-      timing: 30
+      timing: 30,
+      game_box_arr: new Array(9)
     };
 
     this.checkGameStatus = this.checkGameStatus.bind(this);
@@ -42,17 +43,17 @@ class Home extends React.Component {
   }
 
   makeMove(val) {
-    document.getElementById('box_'+val).classList.add('filled');
     let current_type = '';
     if(this.state.current_player === 1) {
       current_type = this.state.player_1_type;
-      this.setState({current_player: 2});
     } else {
       current_type = this.state.player_2_type;
-      this.setState({current_player: 1});
     }
-    document.getElementById('box_'+val).innerText = current_type;
-    this.showTimer();
+    let game_box_arr = Object.assign([], this.state.game_box_arr);
+    game_box_arr[val] = current_type;
+    this.setState({game_box_arr: game_box_arr}, function () {
+      this.showTimer();
+    });
   }
 
   showTimer() {
@@ -92,10 +93,10 @@ class Home extends React.Component {
   checkGameStatus() {
     let flag_1 = false;
     for(let i=0;i<3;i++) {
-      let first = document.getElementById('box_'+(i*3)).innerText;
+      let first = this.state.game_box_arr[i*3];
       let flag = true;
       for(let j=1;j<3;j++) {
-        if(first === '' || first !== document.getElementById('box_'+((i*3)+j)).innerText) {
+        if(first === undefined || first !== this.state.game_box_arr[(i*3)+j]) {
           flag = false;
           break;
         }
@@ -106,10 +107,10 @@ class Home extends React.Component {
       }
     }
     for(let i=0;i<3;i++) {
-      let first = document.getElementById('box_'+i).innerText;
+      let first = this.state.game_box_arr[i];
       let flag = true;
       for(let j=1;j<3;j++) {
-        if(first === '' || first !== document.getElementById('box_'+((j*3)+i)).innerText) {
+        if(first === undefined || first !== this.state.game_box_arr[(j*3)+i]) {
           flag = false;
           break;
         }
@@ -119,21 +120,45 @@ class Home extends React.Component {
         break;
       }
     }
-    if(document.getElementById('box_0').innerText !== '' && document.getElementById('box_0').innerText === document.getElementById('box_4').innerText && document.getElementById('box_4').innerText === document.getElementById('box_8').innerText ) {
+    if(this.state.game_box_arr[0] !== undefined && this.state.game_box_arr[0] === this.state.game_box_arr[4] && this.state.game_box_arr[4] === this.state.game_box_arr[8] ) {
       flag_1 = true;
     }
-    if(document.getElementById('box_6').innerText !== '' && document.getElementById('box_6').innerText === document.getElementById('box_4').innerText && document.getElementById('box_4').innerText === document.getElementById('box_2').innerText) {
+    if(this.state.game_box_arr[6] !== undefined && this.state.game_box_arr[6] === this.state.game_box_arr[4] && this.state.game_box_arr[4] === this.state.game_box_arr[2]) {
       flag_1 = true;
+    }
+    let flag_2 = true;
+    for(let k=0;k<this.state.game_box_arr.length;k++) {
+      if(this.state.game_box_arr[k] === undefined) {
+        flag_2 = false;
+        break;
+      }
     }
     if(flag_1) {
       this.finishGame('move');
+    } else if(flag_2) {
+      alert('game finished and ended in a draw');
+      clearTimeout(this.state.timeout);
+      clearInterval(this.state.timer);
+    } else {
+      let current_player = 1;
+      if(this.state.current_player === 1) {
+        current_player = 2;
+      } else {
+        current_player = 1;
+      }
+      this.setState({current_player: current_player});
     }
   }
 
   render() {
     let gameBoard = [];
     for(let i=0;i<9;i++) {
-      let gameBox = <div key={'box_'+i} id={'box_'+i}  onClick={this.makeMove.bind(this, i)}></div>
+      let gameBox = <div
+        key={'box_'+i}
+        id={'box_'+i}
+        onClick={this.makeMove.bind(this, i)}
+        className={this.state.game_box_arr[i] === undefined ? '' : 'filled'}
+      >{this.state.game_box_arr[i]}</div>
       gameBoard.push(gameBox);
     }
     return (
