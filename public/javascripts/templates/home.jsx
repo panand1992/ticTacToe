@@ -49,7 +49,7 @@ class Home extends React.Component {
     } else {
       current_type = this.state.player_2_type;
     }
-    let game_box_arr = Object.assign([], this.state.game_box_arr);
+    let game_box_arr = this.state.game_box_arr.slice();
     game_box_arr[val] = current_type;
     this.setState({game_box_arr: game_box_arr}, function () {
       this.showTimer();
@@ -127,7 +127,7 @@ class Home extends React.Component {
       flag_1 = true;
     }
     let flag_2 = true;
-    for(let k=0;k<this.state.game_box_arr.length;k++) {
+    for(let k=0;k<9;k++) {
       if(this.state.game_box_arr[k] === undefined) {
         flag_2 = false;
         break;
